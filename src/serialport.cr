@@ -1,5 +1,8 @@
+require "./serialport/lib/*"
 require "./serialport/*"
 
-module Serialport
-  # TODO Put your code here
+module SerialPort
+  def self.package_version
+    String.new LibSerialPort.get_package_version_string
+  end
 end
