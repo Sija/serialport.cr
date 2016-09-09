@@ -1,7 +1,7 @@
 require "./spec_helper"
 
 VERSION_PATTERN = /^\d+(\.\d+){2,3}(-\w+)?$/
-ENV_DEBUG_KEY = "DEBUG"
+ENV_DEBUG_KEY   = "DEBUG"
 
 describe SerialPort do
   describe "VERSION" do

@@ -39,12 +39,12 @@ module SerialPort
       {% if backtrace_offset > 0 %}
         %caller_list.shift {{backtrace_offset}}
       {% end %}
-      %str = String.build do |str|
+      %str = String.build do |%str|
         if %caller = %caller_list.first?
-          str << %caller.colorize(:dark_gray)
-          str << " -- "
+          %str << %caller.colorize(:dark_gray)
+          %str << " -- "
         end
-        str << "{{args}} = ".colorize(:light_gray) << {{args}}
+        %str << "{{args}} = ".colorize(:light_gray) << {{args}}
       end
       ::SerialPort.logger.log {{severity.id}}, %str, "serialport.cr"
     end
@@ -54,7 +54,7 @@ module SerialPort
     ENV["DEBUG"]? == "1"
   end
 
-  def self.package_version
+  def self.package_version : String
     String.new LibSerialPort.get_package_version_string
   end
 
