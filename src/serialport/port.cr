@@ -6,5 +6,6 @@ module SerialPort
     include SerialPort::Struct(LibSerialPort::Port)
 
     include Enumeration
+    include Configuration
   end
 end
