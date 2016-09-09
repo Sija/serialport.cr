@@ -8,6 +8,7 @@ module SerialPort
     include Enumeration
     include Handling
     include Configuration
+    include Signals
 
     def name
       String.new LibSerialPort.get_port_name(self)
