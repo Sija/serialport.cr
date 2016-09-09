@@ -58,20 +58,23 @@ module SerialPort
     String.new LibSerialPort.get_package_version_string
   end
 
-  def self.check?(rc : LibSerialPort::Return) : Bool
-    rc == LibSerialPort::Return::OK
-  end
-
-  def self.check!(rc : LibSerialPort::Return) : LibSerialPort::Return
+  def self.check!(rc : LibSerialPort::Return) : Void
     log(rc, backtrace_offset: 1)
-    return rc if check?(rc)
+    return if rc.ok?
 
-    code = LibSerialPort.last_error_code
-    message_ptr = LibSerialPort.last_error_message
-    message = String.new message_ptr
-
-    LibSerialPort.free_error_message message_ptr
-
-    raise Error.new(message, code.to_i, rc)
+    case rc
+    when .err_arg?
+      raise ArgumentError.new
+    when .err_fail?
+      code = LibSerialPort.last_error_code.to_i
+      message_ptr = LibSerialPort.last_error_message
+      message = String.new message_ptr
+      LibSerialPort.free_error_message message_ptr
+      raise OSError.new(message, code)
+    when .err_supp?
+      raise NotSupportedError.new
+    when .err_mem?
+      raise MemoryAllocationError.new
+    end
   end
 end

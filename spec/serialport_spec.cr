@@ -16,19 +16,6 @@ describe SerialPort do
     end
   end
 
-  describe ".check?" do
-    context "the return code is OK" do
-      it "returns true" do
-        SerialPort.check?(LibSerialPort::Return::OK).should be_true
-      end
-    end
-    context "the return code is not OK" do
-      it "returns false" do
-        SerialPort.check?(LibSerialPort::Return::ERR_ARG).should be_false
-      end
-    end
-  end
-
   describe ".check!" do
     context "the return code is OK" do
       it "should not raise" do
@@ -36,12 +23,21 @@ describe SerialPort do
       end
     end
     context "the return code is not OK" do
-      it "raises SerialPort::Error with a message and error code" do
-        code = LibSerialPort::Return::ERR_ARG
-        message = "Undefined error: 0 (#{code})"
+      it "raises SerialPort::Error with return code" do
+        rc = LibSerialPort::Return::ERR_ARG
 
-        expect_raises(SerialPort::Error, message) do
-          SerialPort.check!(code)
+        expect_raises(SerialPort::Error, rc) do
+          SerialPort.check!(rc)
+        end
+      end
+    end
+    context "the return code is ERR_FAIL" do
+      it "raises SerialPort::OSError with message and error code" do
+        rc = LibSerialPort::Return::ERR_FAIL
+        message = "Undefined error: 0 (0)"
+
+        expect_raises(SerialPort::OSError, message) do
+          SerialPort.check!(rc)
         end
       end
     end
