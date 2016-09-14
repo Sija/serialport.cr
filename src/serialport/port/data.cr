@@ -2,21 +2,21 @@ module SerialPort
   class Port
     module Data
       def blocking_read(count : Int32, timeout_ms : Int32 = 0) : Bytes
-        data = uninitialized Pointer(UInt8)
+        data = Pointer(UInt8).malloc(count)
         bytes = LibSerialPort.blocking_read(self, data.as(Void*), count.to_u32, timeout_ms.to_u16)
         SerialPort.check! LibSerialPort::Return.new(bytes)
         data.to_slice(bytes)
       end
 
       def blocking_read_next(count : Int32, timeout_ms : Int32 = 0) : Bytes
-        data = uninitialized Pointer(UInt8)
+        data = Pointer(UInt8).malloc(count)
         bytes = LibSerialPort.blocking_read_next(self, data.as(Void*), count.to_u32, timeout_ms.to_u16)
         SerialPort.check! LibSerialPort::Return.new(bytes)
         data.to_slice(bytes)
       end
 
       def nonblocking_read(count : Int32) : Bytes
-        data = uninitialized Pointer(UInt8)
+        data = Pointer(UInt8).malloc(count)
         bytes = LibSerialPort.nonblocking_read(self, data.as(Void*), count.to_u32)
         SerialPort.check! LibSerialPort::Return.new(bytes)
         data.to_slice(bytes)
