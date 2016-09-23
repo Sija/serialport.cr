@@ -50,7 +50,7 @@ module SerialPort
     end
 
     def handle
-      fd = uninitialized Int32
+      fd = uninitialized LibC::Int
       SerialPort.check! LibSerialPort.get_port_handle(self, pointerof(fd))
       fd
     end
