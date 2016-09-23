@@ -4,4 +4,7 @@ version: 0.1.0
 authors:
   - Sijawusz Pur Rahnama <sija@sija.pl>
 
+libraries:
+  libserialport: ~> 0.1.1
+
 license: MIT
