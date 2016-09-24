@@ -1,1 +1,11 @@
+sudo: required
+dist: trusty
 language: crystal
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:sigrok-iio/ppa'
+    packages:
+      - libserialport0
+before_install:
+  - sudo ln -s /usr/lib/x86_64-linux-gnu/libserialport.so{.0,}
