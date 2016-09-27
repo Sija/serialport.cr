@@ -21,7 +21,7 @@ $ brew install --HEAD libserialport
 #### Debian/Ubuntu
 
 ```
-$ apt-get install libserialport
+$ apt-get install libserialport0
 ```
 
 ### Shard
