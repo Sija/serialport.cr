@@ -1,4 +1,4 @@
-@[Link("libserialport")]
+@[Link("serialport")]
 lib LibSerialPort
   enum Return
     OK       =  0
