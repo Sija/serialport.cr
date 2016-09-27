@@ -32,12 +32,9 @@ describe SerialPort do
       end
     end
     context "the return code is ERR_FAIL" do
-      it "raises SerialPort::OSError with message and error code" do
-        rc = LibSerialPort::Return::ERR_FAIL
-        message = "Undefined error: 0 (0)"
-
-        expect_raises(SerialPort::OSError, message) do
-          SerialPort.check!(rc)
+      it "raises SerialPort::OSError" do
+        expect_raises(SerialPort::OSError) do
+          SerialPort.check! LibSerialPort::Return::ERR_FAIL
         end
       end
     end
