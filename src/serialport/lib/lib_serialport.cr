@@ -119,7 +119,7 @@ lib LibSerialPort
   struct EventSet
     handles : Void*
     masks : Event*
-    count : UInt16
+    count : UInt32
   end
 
   fun get_port_by_name = "sp_get_port_by_name"(portname : LibC::Char*, port_ptr : Port**) : Return
@@ -143,18 +143,18 @@ lib LibSerialPort
   fun free_config = "sp_free_config"(config : PortConfig*) : Void
   fun get_config = "sp_get_config"(port : Port*, config : PortConfig*) : Return
   fun set_config = "sp_set_config"(port : Port*, config : PortConfig*) : Return
-  fun set_baudrate = "sp_set_baudrate"(port : Port*, baudrate : Int16) : Return
-  fun get_config_baudrate = "sp_get_config_baudrate"(config : PortConfig*, baudrate_ptr : Int16*) : Return
-  fun set_config_baudrate = "sp_set_config_baudrate"(config : PortConfig*, baudrate : Int16) : Return
-  fun set_bits = "sp_set_bits"(port : Port*, bits : Int16) : Return
-  fun get_config_bits = "sp_get_config_bits"(config : PortConfig*, bits_ptr : Int16*) : Return
-  fun set_config_bits = "sp_set_config_bits"(config : PortConfig*, bits : Int16) : Return
+  fun set_baudrate = "sp_set_baudrate"(port : Port*, baudrate : Int32) : Return
+  fun get_config_baudrate = "sp_get_config_baudrate"(config : PortConfig*, baudrate_ptr : Int32*) : Return
+  fun set_config_baudrate = "sp_set_config_baudrate"(config : PortConfig*, baudrate : Int32) : Return
+  fun set_bits = "sp_set_bits"(port : Port*, bits : Int32) : Return
+  fun get_config_bits = "sp_get_config_bits"(config : PortConfig*, bits_ptr : Int32*) : Return
+  fun set_config_bits = "sp_set_config_bits"(config : PortConfig*, bits : Int32) : Return
   fun set_parity = "sp_set_parity"(port : Port*, parity : Parity) : Return
   fun get_config_parity = "sp_get_config_parity"(config : PortConfig*, parity_ptr : Parity*) : Return
   fun set_config_parity = "sp_set_config_parity"(config : PortConfig*, parity : Parity) : Return
-  fun set_stopbits = "sp_set_stopbits"(port : Port*, stopbits : Int16) : Return
-  fun get_config_stopbits = "sp_get_config_stopbits"(config : PortConfig*, stopbits_ptr : Int16*) : Return
-  fun set_config_stopbits = "sp_set_config_stopbits"(config : PortConfig*, stopbits : Int16) : Return
+  fun set_stopbits = "sp_set_stopbits"(port : Port*, stopbits : Int32) : Return
+  fun get_config_stopbits = "sp_get_config_stopbits"(config : PortConfig*, stopbits_ptr : Int32*) : Return
+  fun set_config_stopbits = "sp_set_config_stopbits"(config : PortConfig*, stopbits : Int32) : Return
   fun set_rts = "sp_set_rts"(port : Port*, rts : RTS) : Return
   fun get_config_rts = "sp_get_config_rts"(config : PortConfig*, rts_ptr : RTS*) : Return
   fun set_config_rts = "sp_set_config_rts"(config : PortConfig*, rts : RTS) : Return
@@ -172,10 +172,10 @@ lib LibSerialPort
   fun set_config_xon_xoff = "sp_set_config_xon_xoff"(config : PortConfig*, xon_xoff : XonXoff) : Return
   fun set_config_flowcontrol = "sp_set_config_flowcontrol"(config : PortConfig*, flowcontrol : FlowControl) : Return
   fun set_flowcontrol = "sp_set_flowcontrol"(port : Port*, flowcontrol : FlowControl) : Return
-  fun blocking_read = "sp_blocking_read"(port : Port*, buf : Void*, count : UInt32, timeout_ms : UInt16) : LibC::Int
-  fun blocking_read_next = "sp_blocking_read_next"(port : Port*, buf : Void*, count : UInt32, timeout_ms : UInt16) : LibC::Int
+  fun blocking_read = "sp_blocking_read"(port : Port*, buf : Void*, count : UInt32, timeout_ms : UInt32) : LibC::Int
+  fun blocking_read_next = "sp_blocking_read_next"(port : Port*, buf : Void*, count : UInt32, timeout_ms : UInt32) : LibC::Int
   fun nonblocking_read = "sp_nonblocking_read"(port : Port*, buf : Void*, count : UInt32) : LibC::Int
-  fun blocking_write = "sp_blocking_write"(port : Port*, buf : Void*, count : UInt32, timeout_ms : UInt16) : LibC::Int
+  fun blocking_write = "sp_blocking_write"(port : Port*, buf : Void*, count : UInt32, timeout_ms : UInt32) : LibC::Int
   fun nonblocking_write = "sp_nonblocking_write"(port : Port*, buf : Void*, count : UInt32) : LibC::Int
   fun input_waiting = "sp_input_waiting"(port : Port*) : LibC::Int
   fun output_waiting = "sp_output_waiting"(port : Port*) : LibC::Int
@@ -183,22 +183,22 @@ lib LibSerialPort
   fun drain = "sp_drain"(port : Port*) : Return
   fun new_event_set = "sp_new_event_set"(result_ptr : EventSet**) : Return
   fun add_port_events = "sp_add_port_events"(event_set : EventSet*, port : Port*, mask : Event) : Return
-  fun wait = "sp_wait"(event_set : EventSet*, timeout_ms : UInt16) : Return
+  fun wait = "sp_wait"(event_set : EventSet*, timeout_ms : UInt32) : Return
   fun free_event_set = "sp_free_event_set"(event_set : EventSet*) : Void
   fun get_signals = "sp_get_signals"(port : Port*, signal_mask : Signal*) : Return
   fun start_break = "sp_start_break"(port : Port*) : Return
   fun end_break = "sp_end_break"(port : Port*) : Return
-  fun last_error_code = "sp_last_error_code" : Int16
+  fun last_error_code = "sp_last_error_code" : Int32
   fun last_error_message = "sp_last_error_message" : LibC::Char*
   fun free_error_message = "sp_free_error_message"(message : LibC::Char*) : Void
   fun set_debug_handler = "sp_set_debug_handler"(handler : Void*) : Void
   fun default_debug_handler = "sp_default_debug_handler"(format : LibC::Char*, ...) : Void
-  fun get_major_package_version = "sp_get_major_package_version" : Int16
-  fun get_minor_package_version = "sp_get_minor_package_version" : Int16
-  fun get_micro_package_version = "sp_get_micro_package_version" : Int16
+  fun get_major_package_version = "sp_get_major_package_version" : Int32
+  fun get_minor_package_version = "sp_get_minor_package_version" : Int32
+  fun get_micro_package_version = "sp_get_micro_package_version" : Int32
   fun get_package_version_string = "sp_get_package_version_string" : LibC::Char*
-  fun get_current_lib_version = "sp_get_current_lib_version" : Int16
-  fun get_revision_lib_version = "sp_get_revision_lib_version" : Int16
-  fun get_age_lib_version = "sp_get_age_lib_version" : Int16
+  fun get_current_lib_version = "sp_get_current_lib_version" : Int32
+  fun get_revision_lib_version = "sp_get_revision_lib_version" : Int32
+  fun get_age_lib_version = "sp_get_age_lib_version" : Int32
   fun get_lib_version_string = "sp_get_lib_version_string" : LibC::Char*
 end

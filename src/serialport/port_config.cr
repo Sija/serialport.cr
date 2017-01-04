@@ -28,7 +28,7 @@ module SerialPort
     end
 
     def baudrate=(baudrate : Int32) : Void
-      SerialPort.check! LibSerialPort.set_config_baudrate(self, baudrate.to_i16)
+      SerialPort.check! LibSerialPort.set_config_baudrate(self, baudrate)
     end
 
     def parity : LibSerialPort::Parity
@@ -47,7 +47,7 @@ module SerialPort
     end
 
     def bits=(bits : Int32) : Void
-      SerialPort.check! LibSerialPort.set_config_bits(self, bits.to_i16)
+      SerialPort.check! LibSerialPort.set_config_bits(self, bits)
     end
 
     def stopbits : Int32
@@ -56,7 +56,7 @@ module SerialPort
     end
 
     def stopbits=(stopbits : Int32) : Void
-      SerialPort.check! LibSerialPort.set_config_stopbits(self, stopbits.to_i16)
+      SerialPort.check! LibSerialPort.set_config_stopbits(self, stopbits)
     end
 
     def rts : LibSerialPort::RTS
