@@ -4,12 +4,6 @@ VERSION_PATTERN = /^\d+(\.\d+){2,3}(-\w+)?$/
 ENV_DEBUG_KEY   = "DEBUG"
 
 describe SerialPort do
-  describe "VERSION" do
-    it "should have proper format" do
-      SerialPort::VERSION.should match VERSION_PATTERN
-    end
-  end
-
   describe ".package_version" do
     it "should have proper format" do
       SerialPort.package_version.should match VERSION_PATTERN
